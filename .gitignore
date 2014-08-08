@@ -1,5 +1,2 @@
-#bins
-./bin/*
-
 #object files
 ./*/*.obj
