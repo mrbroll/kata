@@ -1,3 +1,6 @@
+// This is kata02 form codekata.com = binary search on an array of integers
+// returning the index of the key, if found. -1 otherwise
+
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
