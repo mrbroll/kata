@@ -1,2 +1,2 @@
 #generation binary for testing
-./generate
+./bin/*
