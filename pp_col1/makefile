@@ -4,17 +4,20 @@ LFLAGS = -g -Wall -std=c++1y
 
 all: pp_col1
 
-pp_col1: main.o bit_vector.o
-	$(CXX) $(LFLAGS) -o pp_col1 main.o bit_vector.o
+pp_col1: test.o bit_vector.o number_generator.o
+	$(CXX) $(LFLAGS) -o pp_col1 test.o bit_vector.o number_generator.o
 	mv pp_col1 ../bin/pp_col1
 
-main.o: main.cc
-	$(CXX) $(CFLAGS) -o main.o main.cc
+test.o: test.cc
+	$(CXX) $(CFLAGS) -o test.o test.cc
 
 bit_vector.o: bit_vector.cc bit_vector.hh
 	$(CXX) $(CFLAGS) -o bit_vector.o bit_vector.cc
 
+number_generator.o: number_generator.cc number_generator.hh
+	$(CXX) $(CFLAGS) -o number_generator.o number_generator.cc
+
 .PHONY: clean
 
 clean:
-	rm -rf *.o pp_col1
+	rm -rf *.o pp_col1 ./bin/*

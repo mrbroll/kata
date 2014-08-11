@@ -11,12 +11,11 @@ public:
 ~BitVector(void);
 static BitVector *Instance(void);
 int hydrate(std::string fileName);
+int writeBack(std::string fileName);
 
 private:
-BitVector(void) {};
-BitVector(BitVector const&) {};
-BitVector* operator=(BitVector const&) {};
-static *BitVector _instance;
+BitVector(void){};
+static BitVector *_instance;
 
 char *_vectorData;
 
