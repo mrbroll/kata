@@ -1,0 +1,2 @@
+# don't commit any .dat files. they are auto-generated and possibly HUGE
+*.dat
