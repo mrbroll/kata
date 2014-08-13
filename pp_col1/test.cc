@@ -7,7 +7,7 @@
 #include <limits>
 #include <list>
 
-void testBitVector(int numTests, std::string testFileName)
+void testBitVector(int numTests, std::string testFileName, size_t maxNumber = 10000000, size_t vectorLength = 1000000, size_t uniqueness = 1)
 {
     double totalDuration = std::numeric_limits<double>::min();
     double maxTime = std::numeric_limits<double>::min();
@@ -17,7 +17,7 @@ void testBitVector(int numTests, std::string testFileName)
     std::cout << "running test ";
     for (int i = 0; i < numTests; ++i)
     {
-        NumberGenerator::Instance()->generate(testFileName, 10000000, 1000000, 1);
+        NumberGenerator::Instance()->generate(testFileName, maxNumber, vectorLength, uniqueness);
         std::cout << (i + 1);
         std::cout.flush();
         std::clock_t start;
@@ -25,14 +25,15 @@ void testBitVector(int numTests, std::string testFileName)
 
         start = std::clock();
 
-        BitVector::Instance()->hydrate(testFileName);
+        BitVector::Instance(maxNumber)->hydrate(testFileName);
         BitVector::Instance()->writeBack(testFileName);
+        delete BitVector::Instance();
 
         duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 
         if (duration > maxTime)
             maxTime = duration;
-        else if (duration < minTime)
+        if (duration < minTime)
             minTime = duration;
 
         totalDuration += duration;
@@ -56,17 +57,17 @@ void testBitVector(int numTests, std::string testFileName)
     return;
 }
 
-void testIntVector(int numTests, std::string testFileName)
+void testIntList(int numTests, std::string testFileName, size_t maxNumber = 10000000, size_t vectorLength = 1000000, size_t uniqueness = 1)
 {
     double totalDuration = 0;
     double maxTime = std::numeric_limits<double>::min();
     double minTime = std::numeric_limits<double>::max();
 
-    std::cout << "running tests for std::vector<int> implementation" << std::endl;
+    std::cout << "running tests for std::list<int> implementation" << std::endl;
     std::cout << "running test ";
     for (int i = 0; i < numTests; ++i)
     {
-        NumberGenerator::Instance()->generate(testFileName, 10000000, 1000000, 1);
+        NumberGenerator::Instance()->generate(testFileName, maxNumber, vectorLength, uniqueness);
         std::cout << (i + 1);
         std::cout.flush();
         std::clock_t start;
@@ -78,7 +79,6 @@ void testIntVector(int numTests, std::string testFileName)
         std::list<int> *intList = new std::list<int>();
 
         // open the file and hydrate the list
-        duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
         std::ifstream inputFile;
         inputFile.open(testFileName);
 
@@ -110,7 +110,7 @@ void testIntVector(int numTests, std::string testFileName)
 
         if (duration > maxTime)
             maxTime = duration;
-        else if (duration < minTime)
+        if (duration < minTime)
             minTime = duration;
 
         totalDuration += duration;
@@ -126,7 +126,7 @@ void testIntVector(int numTests, std::string testFileName)
 
     double avgTime = totalDuration / numTests;
 
-    std::cout << "tests complete for std::vector<int> implementation" << std::endl;
+    std::cout << "tests complete for std::list<int> implementation" << std::endl;
     std::cout << "ran " << numTests << " tests" << std::endl;
     std::cout << "avg time: " << avgTime << "s" << std::endl;
     std::cout << "max time: " << maxTime << "s" << std::endl;
@@ -146,8 +146,8 @@ int main (int argc, char *argv[])
             testFileName = argv[2];
     }
 
-    testBitVector(numTests, testFileName);
-    testIntVector(numTests, testFileName);
+    testBitVector(numTests, testFileName, 10000000, 1000000, 1);
+    testIntList(numTests, testFileName, 10000000, 1000000, 1);
 
     return 0;
 }

@@ -9,22 +9,22 @@
 class BitVector {
 public:
 ~BitVector(void);
-static BitVector *Instance(void);
+static BitVector *Instance(size_t length = 0);
 int hydrate(std::string fileName);
 int writeBack(std::string fileName);
 
 private:
-BitVector(void){};
+BitVector(size_t length);
 static BitVector *_instance;
 
 char *_vectorData;
 
-static const int _length = 1000000;
+size_t _length;
 static const char _bitMask = 0x01;
 
 int getBit(int index);
-int setBit(int index);
-int clearBit(int index);
+void setBit(int index);
+void clearBit(int index);
 };
 
 #endif

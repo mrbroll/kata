@@ -26,17 +26,15 @@ int NumberGenerator::generate(std::string fileName, size_t max, size_t count, si
     for (int i = 0; i < count; i++)
     {
         int randomValue = abs(rand()) % max;
-        if (checkVector[randomValue] == uniqueness) {
-            i++;
-        } else {
-            numberFile << randomValue << std::endl;
-            checkVector[randomValue]++;
+        while (checkVector[randomValue] == uniqueness) {
+            randomValue = abs(rand()) % max;
         }
+        numberFile << randomValue << std::endl;
+        checkVector[randomValue]++;
     }
 
-    free(checkVector);
-
     numberFile.close();
+    free(checkVector);
 
     return 0;
 }
