@@ -13,19 +13,28 @@ NumberGenerator *NumberGenerator::Instance(void)
     return _instance;
 }
 
-int NumberGenerator::generate(std::string fileName)
+int NumberGenerator::generate(std::string fileName, size_t max, size_t count, size_t uniqueness)
 {
-    int maxValue = 10000000;
-    int numberCount = 1000000;
+    size_t *checkVector = (size_t *)calloc(max, sizeof(size_t));
+
+    if (!checkVector)
+        return 1;
 
     std::ofstream numberFile;
     numberFile.open(fileName);
 
-    for (int i = 0; i < numberCount; ++i)
+    for (int i = 0; i < count; i++)
     {
-        int randomValue = abs(rand() % maxValue);
-        numberFile << randomValue << std::endl;
+        int randomValue = abs(rand()) % max;
+        if (checkVector[randomValue] == uniqueness) {
+            i++;
+        } else {
+            numberFile << randomValue << std::endl;
+            checkVector[randomValue]++;
+        }
     }
+
+    free(checkVector);
 
     numberFile.close();
 

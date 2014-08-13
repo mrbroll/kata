@@ -17,7 +17,7 @@ void testBitVector(int numTests, std::string testFileName)
     std::cout << "running test ";
     for (int i = 0; i < numTests; ++i)
     {
-        NumberGenerator::Instance()->generate(testFileName);
+        NumberGenerator::Instance()->generate(testFileName, 10000000, 1000000, 1);
         std::cout << (i + 1);
         std::cout.flush();
         std::clock_t start;
@@ -66,7 +66,7 @@ void testIntVector(int numTests, std::string testFileName)
     std::cout << "running test ";
     for (int i = 0; i < numTests; ++i)
     {
-        NumberGenerator::Instance()->generate(testFileName);
+        NumberGenerator::Instance()->generate(testFileName, 10000000, 1000000, 1);
         std::cout << (i + 1);
         std::cout.flush();
         std::clock_t start;
@@ -137,7 +137,7 @@ void testIntVector(int numTests, std::string testFileName)
 
 int main (int argc, char *argv[])
 {
-    int numTests = 100;
+    int numTests = 10;
     std::string testFileName = "./phone_numbers.dat";
 
     if (argc > 1) {
