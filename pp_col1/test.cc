@@ -195,8 +195,8 @@ int main (int argc, char *argv[])
             testFileName = argv[2];
     }
 
-    //testBitVector(numTests, testFileName, 10000000, 1000000, 1);
-    //testIntList(numTests, testFileName, 10000000, 1000000, 1);
+    testBitVector(numTests, testFileName, 10000000, 1000000, 1);
+    testIntList(numTests, testFileName, 10000000, 1000000, 1);
     testBitVector2Pass(numTests, testFileName, 10000000, 1000000, 1);
 
     return 0;
