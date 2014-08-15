@@ -6,7 +6,7 @@
 
 BitVector *BitVector::_instance = NULL;
 
-BitVector::BitVector(size_t length) : _vectorData(NULL), _length(length) {}
+BitVector::BitVector(size_t length) :  _length(length), _vectorData(NULL) {}
 
 BitVector::~BitVector(void)
 {
@@ -27,7 +27,7 @@ BitVector *BitVector::Instance(size_t length)
     return _instance;
 }
 
-int BitVector::hydrate(std::string fileName)
+int BitVector::sortFile(std::string fileName)
 {
     if (!_vectorData) {
         std::ifstream numberFile;
@@ -50,26 +50,20 @@ int BitVector::hydrate(std::string fileName)
         }
 
         numberFile.close();
+
+        std::ofstream outputFile;
+        outputFile.open(fileName);
+
+        for (int i = 0; i < _length; ++i)
+        {
+            if (getBit(i))
+                outputFile << i << std::endl;
+        }
+
+        outputFile.close();
+
+        delete this;
     }
-
-    return 0;
-}
-
-int BitVector::writeBack(std::string fileName)
-{
-    std::ofstream numberFile;
-    numberFile.open(fileName);
-
-    for (int i = 0; i < _length; ++i)
-    {
-        if (getBit(i))
-            numberFile << i << std::endl;
-    }
-
-    free(_vectorData);
-    _vectorData = NULL;
-
-    numberFile.close();
 
     return 0;
 }

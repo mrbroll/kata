@@ -8,23 +8,21 @@
 // singleton class
 class BitVector {
 public:
-~BitVector(void);
 static BitVector *Instance(size_t length = 0);
-int hydrate(std::string fileName);
-int writeBack(std::string fileName);
+int sortFile(std::string fileName);
 
-private:
+protected:
 BitVector(size_t length);
+virtual ~BitVector(void);
 static BitVector *_instance;
-
-char *_vectorData;
-
 size_t _length;
 static const char _bitMask = 0x01;
-
 int getBit(int index);
 void setBit(int index);
 void clearBit(int index);
+
+private:
+char *_vectorData;
 };
 
 #endif

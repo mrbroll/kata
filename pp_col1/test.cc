@@ -1,4 +1,5 @@
 #include "bit_vector.hh"
+#include "bit_vector_2pass.hh"
 #include "number_generator.hh"
 #include <cstdlib>
 #include <cmath>
@@ -25,9 +26,7 @@ void testBitVector(int numTests, std::string testFileName, size_t maxNumber = 10
 
         start = std::clock();
 
-        BitVector::Instance(maxNumber)->hydrate(testFileName);
-        BitVector::Instance()->writeBack(testFileName);
-        delete BitVector::Instance();
+        BitVector::Instance(maxNumber)->sortFile(testFileName);
 
         duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 
@@ -134,6 +133,56 @@ void testIntList(int numTests, std::string testFileName, size_t maxNumber = 1000
     return;
 }
 
+void testBitVector2Pass(int numTests, std::string testFileName, size_t maxNumber = 10000000, size_t vectorLength = 1000000, size_t uniqueness = 1)
+{
+    double totalDuration = std::numeric_limits<double>::min();
+    double maxTime = std::numeric_limits<double>::min();
+    double minTime = std::numeric_limits<double>::max();
+
+    std::cout << "running tests for 2-pass bit vector implementation" << std::endl;
+    std::cout << "running test ";
+    for (int i = 0; i < numTests; ++i)
+    {
+        NumberGenerator::Instance()->generate(testFileName, maxNumber, vectorLength, uniqueness);
+        std::cout << (i + 1);
+        std::cout.flush();
+        std::clock_t start;
+        double duration;
+
+        start = std::clock();
+
+        std::string tempFileName1 = testFileName + ".temp1";
+        std::string tempFileName2 = testFileName + ".temp2";
+        BitVector2Pass::Instance(maxNumber)->sortFile(testFileName, tempFileName1, tempFileName2);
+
+        duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
+
+        if (duration > maxTime)
+            maxTime = duration;
+        if (duration < minTime)
+            minTime = duration;
+
+        totalDuration += duration;
+        for (int j = 0; j < ((int)(log10(i + 1)) + 1); ++j)
+        {
+            std::cout << "\b";
+        }
+
+        std::cout.flush();
+    }
+
+    std::cout << std::endl;
+
+    double avgTime = totalDuration / numTests;
+
+    std::cout << "tests complete for bit vector implementation" << std::endl;
+    std::cout << "ran " << numTests << " tests" << std::endl;
+    std::cout << "avg time: " << avgTime << "s" << std::endl;
+    std::cout << "max time: " << maxTime << "s" << std::endl;
+    std::cout << "min time: " << minTime << "s" << std::endl;
+    return;
+}
+
 
 int main (int argc, char *argv[])
 {
@@ -146,8 +195,9 @@ int main (int argc, char *argv[])
             testFileName = argv[2];
     }
 
-    testBitVector(numTests, testFileName, 10000000, 1000000, 1);
-    testIntList(numTests, testFileName, 10000000, 1000000, 1);
+    //testBitVector(numTests, testFileName, 10000000, 1000000, 1);
+    //testIntList(numTests, testFileName, 10000000, 1000000, 1);
+    testBitVector2Pass(numTests, testFileName, 10000000, 1000000, 1);
 
     return 0;
 }

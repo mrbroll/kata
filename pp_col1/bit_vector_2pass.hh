@@ -4,17 +4,17 @@
 #ifndef _BIT_VECTOR_2PASS_HH
 #define _BIT_VECTOR_2PASS_HH
 
-class BitVector2Pass : public BitVector
+class BitVector2Pass : protected BitVector
 {
 public:
-~BitVector(void);
-using BitVector::Instance;
-int hydrate(std::string fileName std::string tempFileName);
-int writeBack(std::string fileName std::string tempFileName);
+static BitVector2Pass *Instance(size_t length = 0);
+int sortFile(std::string fileName, std::string tempFileName1, std::string tempFileName2);
+
+protected:
+BitVector2Pass(size_t length = 0);
+virtual ~BitVector2Pass(void);
 
 private:
-BitVector2Pass(size_t length = 0);
-static BitVector *_instance;
-static int _pass;
+static BitVector2Pass *_instance;
 };
 #endif
