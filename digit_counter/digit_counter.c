@@ -54,19 +54,18 @@ size_t getCountRecursive(int to, int digit, int exp)
     to = abs(to);
     int log = (int)log10(to);
 
-    exp++;
-
-    count += pow(10, exp) * (to / pow(10, exp));
+    count += (int)pow(10, exp) * (to / (int)pow(10, (exp + 1)));
 
     if (exp < log) {
-        count += getCountRecursive(to, digit, exp);
+        count += getCountRecursive(to, digit, exp + 1);
     }
 
-    int ten_exp = pow(10, exp);
-    if ((to % (ten_exp * 10)) >= (digit * ten_exp)) {
-        count += pow(10, exp);
-    } else if (exp) {
-        count += (to % ten_exp);
+    int ten_exp = (int)pow(10, exp);
+    if (((to % (ten_exp * 10)) >= ((digit + 1) * ten_exp)) ||
+        (!exp && ((to % (ten_exp * 10)) >= (digit * ten_exp)))) {
+        count += ten_exp;
+    } else if (exp && ((to % (ten_exp * 10)) >= (digit * ten_exp))) {
+        count += (to % ten_exp) + 1;
     }
 
     return count;

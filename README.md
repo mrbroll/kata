@@ -16,4 +16,5 @@ I will primarily be doing these in c/c++, but might expand to other languages as
 
 I've also created some problems of my own:
 
-+ [Stacks and Queues](/stack_queue}
++ [Stacks and Queues](/stack_queue)
++ [Integer Sequence Digit Counter](/stack_queue)
