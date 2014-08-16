@@ -1,5 +1,6 @@
 #include "digit_counter.h"
 #include <math.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -24,6 +25,10 @@ size_t getCountIterative(int to, int digit)
     int i;
     int j;
 
+    int progress = 0;
+    int progressStepSize = to/100 + 1;
+    printf("Progress: 0%%");
+    fflush(stdout);
     for (i = 0; i <= to; ++i)
     {
         for (j = 0; j <= log; ++j)
@@ -33,7 +38,20 @@ size_t getCountIterative(int to, int digit)
             if (!mod)
                 count++;
         }
+
+        if (i && !(i % progressStepSize)) {
+            progress++;
+            if (progress <= 10)
+                printf("\b\b%d%%", progress);
+            else
+                printf("\b\b\b%d%%", progress);
+
+            fflush(stdout);
+        }
     }
+
+    printf("\b\b\b");
+    printf("100%%\n");
 
     return count;
 }
