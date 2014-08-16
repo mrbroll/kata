@@ -1,0 +1,5 @@
+#ignore all bins
+*
+
+#don't ignore this folder
+!.gitignore
