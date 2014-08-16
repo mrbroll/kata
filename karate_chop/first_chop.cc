@@ -17,7 +17,7 @@ int FirstChop::m_chop(int key, size_t arraySize, int inputArray[])
 
         if (key == inputArray[middle]) {
             return middle;
-        } else if (key < inputArray[middle]) { // key < inputArray[middle]
+        } else if (key < inputArray[middle]) {
             int *newArray;
             newArray = (int *)malloc(middle*sizeof(int));
             memcpy(newArray, inputArray, middle*sizeof(int));
