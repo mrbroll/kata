@@ -14,7 +14,7 @@ I will primarily be doing these in c/c++, but might expand to other languages as
 + [Karate Chop](/karate_chop)
 + [Data Munging](/data_munging)
 
-I've also created some problems of my own:
+I've also created some problems of my own
 
 + [Stacks and Queues](/stack_queue)
-+ [Integer Sequence Digit Counter](/stack_queue)
++ [Integer Sequence Digit Counter](/digit_counter)
