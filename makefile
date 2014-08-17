@@ -3,10 +3,15 @@ DATA_MUNGING_DIR = data_munging
 PP_COL1_DIR = pp_col1
 STACK_QUEUE_DIR = stack_queue
 DIGIT_COUNTER_DIR = digit_counter
+SORTS_DIR = sorts
 
 .PHONY: karate_chop_kata data_munging clean
 
-all: karate_chop_kata pp_col1_kata stack_queue_kata digit_counter_kata
+all: 	karate_chop_kata \
+		pp_col1_kata \
+		stack_queue_kata \
+		digit_counter_kata \
+		sorts_kata
 
 karate_chop_kata:
 	$(MAKE) -C $(KARATE_CHOP_DIR)
@@ -23,10 +28,14 @@ stack_queue_kata:
 digit_counter_kata:
 	$(MAKE) -C $(DIGIT_COUNTER_DIR)
 
+sorts_kata:
+	$(MAKE) -C $(SORTS_DIR)
+
 clean:
 	$(MAKE) -C $(KARATE_CHOP_DIR) clean
 	$(MAKE) -C $(DATA_MUNGING_DIR) clean
 	$(MAKE) -C $(PP_COL1_DIR) clean
 	$(MAKE) -C $(STACK_QUEUE_DIR) clean
 	$(MAKE) -C $(DIGIT_COUNTER_DIR) clean
+	$(MAKE) -C $(SORTS_DIR) clean
 	rm -rf ./bin/*

@@ -18,3 +18,4 @@ I've also created some problems of my own
 
 + [Stacks and Queues](/stack_queue)
 + [Integer Sequence Digit Counter](/digit_counter)
++ [Integer Sorting](/sorts)
