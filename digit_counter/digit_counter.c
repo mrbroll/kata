@@ -67,6 +67,8 @@ size_t getCountRecursive(int to, int digit)
     int msd = to / pow(10, log);
     // get least significant digits
     int lsds = to - msd * pow(10, log);
+
+    // chop this down to an easier sequence, and send the remainder to the recursive call
     int sub_msd = msd - 1;
     int extra = 0;
     if (msd == digit) {
