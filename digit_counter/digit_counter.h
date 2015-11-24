@@ -9,7 +9,7 @@ extern "C"
 #endif
 
 size_t getCountIterative(int to, int digit);
-size_t getCountRecursive(int to, int digit, int exp);
+size_t getCountRecursive(int to, int digit);
 
 #ifdef __cplusplus
 }

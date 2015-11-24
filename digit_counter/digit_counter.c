@@ -56,37 +56,29 @@ size_t getCountIterative(int to, int digit)
     return count;
 }
 
-size_t getCountRecursive(int to, int digit, int exp)
+size_t getCountRecursive(int to, int digit)
 {
-    if (digit < 0) {
+    if (to == 0) {
         return 0;
     }
-
-    if (to == 0 && digit == 0) {
-        return 1;
-    } else if (to == 0) {
-        return 0;
-    }
-
-    size_t count = 0;
     to = abs(to);
     int log = (int)log10(to);
-
-    count += (int)pow(10, exp) * (to / (int)pow(10, (exp + 1)));
-
-    if (exp < log) {
-        count += getCountRecursive(to, digit, exp + 1);
+    // get most significant digit
+    int msd = to / pow(10, log);
+    // get least significant digits
+    int lsds = to - msd * pow(10, log);
+    int sub_msd = msd - 1;
+    int extra = 0;
+    if (msd == digit) {
+        extra = lsds + 1;
+    } else if (msd > digit) {
+        extra = pow(10, log);
     }
-
-    int ten_exp = (int)pow(10, exp);
-    if (((to % (ten_exp * 10)) >= ((digit + 1) * ten_exp)) ||
-        (!exp && ((to % (ten_exp * 10)) >= (digit * ten_exp)))) {
-        count += ten_exp;
-    } else if (exp && ((to % (ten_exp * 10)) >= (digit * ten_exp))) {
-        count += (to % ten_exp) + 1;
+    int current_count = 0;
+    if (log > 0) {
+        current_count = (int)pow(10, log - 1) * log * (sub_msd + 1);
     }
-
-    return count;
+    return current_count + extra + getCountRecursive(lsds, digit);
 }
 
 #ifdef __cplusplus

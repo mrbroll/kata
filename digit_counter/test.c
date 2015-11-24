@@ -5,6 +5,8 @@
 int main(int argc, char *argv[])
 {
     printf("running tests...\n");
+    int testInt = 999;
+    int testDigit = 7;
     int testIntA = 42;
     int testDigitA = 2;
     int testIntB = 231;
@@ -15,6 +17,17 @@ int main(int argc, char *argv[])
     int longTestDigit = 7;
 
     size_t count;
+
+    printf("Iterative function with N = %d, and Digit = %d...\n", testInt, testDigit);
+    count = getCountIterative(testInt, testDigit);
+    assert(count == 300);
+    printf("passed!\n");
+
+    printf("Recursive function with N = %d, and Digit = %d...\n", testInt, testDigit);
+    count = getCountRecursive(testInt, testDigit, 0);
+    printf("Count: %zd\n", count);
+    assert(count == 300);
+    printf("passed!\n");
 
 
     printf("Iterative function with N = %d, and Digit = %d...\n", testIntA, testDigitA);
